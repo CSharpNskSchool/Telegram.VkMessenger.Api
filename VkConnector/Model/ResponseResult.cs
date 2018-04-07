@@ -8,7 +8,7 @@
         /// <summary>
         ///     Результат обработки запроса
         /// </summary>
-        public bool Ok { get; set; }
+        public bool IsOk { get; set; }
 
         /// <summary>
         ///     Краткое описание результата
