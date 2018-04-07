@@ -37,7 +37,7 @@ namespace VkConnector.Controllers
                 return BadRequest(new ResponseResult
                 {
                     IsOk = false,
-                    Description = $"Ошибка отправки сообщения: {e.Message}"
+                    Description = e.Message
                 });
             }
 
