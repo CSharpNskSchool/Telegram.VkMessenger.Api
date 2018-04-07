@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using VkConnector.Model.Messages;
 using VkNet;
@@ -10,25 +11,52 @@ namespace VkConnector.Extensions
     {
         public static async Task Transfer(this TransmittedMessage transmittedMessage)
         {
+            var bodyText = transmittedMessage.Body.Text;
+            if (bodyText == null)
+            {
+                throw new ArgumentException($"Сообщение пустое");
+            }
+            
             var api = new VkApi();
             await api.AuthorizeAsync(new ApiAuthParams
             {
                 AccessToken = transmittedMessage.AuthorizedSender.AccessToken
             });
 
-            var receivers = transmittedMessage.Receivers
-                .Select(receiver => api.Utils.ResolveScreenName(receiver.Id))
-                .Where(receiver => receiver.Id.HasValue)
-                .Select(receiver => receiver.Id.Value);
+            var receiverIds = transmittedMessage.Receivers
+                .Select(receiver => api.GetReceiverId(receiver.Id));
 
-            foreach (var receiver in receivers)
+            foreach (var receiverId in receiverIds)
             {
                 await api.Messages.SendAsync(new MessagesSendParams
                 {
-                    Message = transmittedMessage.Body.Text,
-                    PeerId = receiver
+                    Message = bodyText,
+                    PeerId = receiverId
                 });
             }
+        }
+
+        private static long GetReceiverId(this VkApi api, string receiver)
+        {
+            if (receiver.StartsWith("c") && long.TryParse(receiver.Substring(1), out var groupChatId))
+            {
+                return 2000000000 + groupChatId;
+            }
+
+            try
+            {
+                var receiverId = api.Utils.ResolveScreenName(receiver).Id;
+                if (receiverId.HasValue)
+                {
+                    return receiverId.Value;
+                }
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
+
+            throw new ArgumentException($"Не найден получатель: {receiver}");
         }
     }
 }
