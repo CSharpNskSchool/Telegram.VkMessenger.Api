@@ -17,6 +17,6 @@ namespace VkConnector.Model
         ///     Информация для авторизации
         /// </summary>
         [Required]
-        public AuthorizedUser BotUser { get; }
+        public AuthorizedUser User { get; }
     }
 }
