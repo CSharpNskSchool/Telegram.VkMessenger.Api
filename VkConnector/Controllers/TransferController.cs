@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VkConnector.Model;
+using VkConnector.Model.Messages;
 
 namespace VkConnector.Controllers
 {
@@ -19,12 +20,12 @@ namespace VkConnector.Controllers
             {
                 return BadRequest(new ResponseResult
                 {
-                    Ok = false,
+                    IsOk = false,
                     Description = "Не передано сообщение или данные для авторизации"
                 });
             }
 
-            return BadRequest(new ResponseResult {Ok = false, Description = "Метод еще не реализован"});
+            return BadRequest(new ResponseResult {IsOk = false, Description = "Метод еще не реализован"});
         }
     }
 }
