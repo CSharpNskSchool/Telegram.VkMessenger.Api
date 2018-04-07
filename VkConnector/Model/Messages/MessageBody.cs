@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace VkConnector.Model.Messages
+﻿namespace VkConnector.Model.Messages
 {
     /// <summary>
     ///     Тело сообщения
@@ -13,6 +8,6 @@ namespace VkConnector.Model.Messages
         /// <summary>
         ///     Текстовое сообщение
         /// </summary>
-        public string Text { get; }
+        public string Text { get; set; }
     }
 }

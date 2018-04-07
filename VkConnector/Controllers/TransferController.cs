@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using VkConnector.Extensions;
 using VkConnector.Model;
 using VkConnector.Model.Messages;
 
@@ -14,7 +17,7 @@ namespace VkConnector.Controllers
         /// <response code="200">Успешная отправка сообщения</response>
         /// <response code="400">Отправка сообщения не удалась</response>
         [HttpPost]
-        public IActionResult TransferMessage([FromBody] TransmittedMessage transmittedMessage)
+        public async Task<IActionResult> TransferMessage([FromBody] TransmittedMessage transmittedMessage)
         {
             if (!ModelState.IsValid)
             {
@@ -25,7 +28,20 @@ namespace VkConnector.Controllers
                 });
             }
 
-            return BadRequest(new ResponseResult {IsOk = false, Description = "Метод еще не реализован"});
+            try
+            {
+                await transmittedMessage.Transfer();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ResponseResult
+                {
+                    IsOk = false,
+                    Description = "Ошибка отправки сообщения"
+                });
+            }
+
+            return Ok(new ResponseResult {IsOk = false, Description = "Сообщение отправлено"});
         }
     }
 }
