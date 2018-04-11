@@ -6,7 +6,8 @@ namespace VkConnector.Model
 {
     /// <summary>
     /// </summary>
-    public class SubscriptionModel
+    [Serializable]
+    public class Subscription
     {
         /// <summary>
         ///     Url, на который будут приходить уведомления о новых сообщениях
@@ -16,7 +17,7 @@ namespace VkConnector.Model
         /// <summary>
         ///     Информация для авторизации
         /// </summary>
-        [Required]
-        public AuthorizedUser User { get; }
+        
+        public AuthorizedUser User { get; set; }
     }
 }

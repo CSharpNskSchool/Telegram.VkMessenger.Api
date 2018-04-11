@@ -7,10 +7,14 @@ namespace VkConnector.Model.Users
     /// </summary>
     public class ExternalUser
     {
+        public ExternalUser(string id)
+        {
+            this.Id = id;
+        }
+
         /// <summary>
         ///     Id этого челика в соц.сети
         /// </summary>
-        [Required]
-        public string Id { get; set; }
+        public string Id { get; }
     }
 }

@@ -9,6 +9,18 @@ namespace VkConnector.Extensions
 {
     public static class TransmittedMessageExtensions
     {
+        /// <summary>
+        ///     Рассылает сообщение по прикрепленным в объекте адресатам
+        /// </summary>
+        /// 
+        /// <param name="transmittedMessage">
+        ///     Пересылаемое сообщение. Содержит информацию авторизованного польователя бота,
+        ///     тело сообщения, адресатов.
+        /// </param>
+        /// 
+        /// <returns>
+        ///     Задача с телом Action
+        /// </returns>
         public static async Task Transfer(this TransmittedMessage transmittedMessage)
         {
             var bodyText = transmittedMessage.Body.Text;

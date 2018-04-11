@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace VkConnector.Model.Users
 {
     /// <summary>
     ///     Информация, необходимая для аутентификации
     /// </summary>
+
+    [Serializable]
     public class AuthorizedUser
     {
         /// <summary>
