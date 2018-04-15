@@ -37,18 +37,11 @@ namespace VkConnector.Test
                 {
                     AccessToken = ValidAcessToken
                 },
-                Body = new MessageBody()
-                {
-                    Text = "sample_text"
-                },
-                Receivers = new []
-                {
-                    new ExternalUser()
-                    {
-                        Id = "very long just nonexistent username with spaces"
-                    }, 
-                }
-                
+                Body = new MessageBody("sample_text")
+            };
+            var Receivers = new[]
+            {
+                new ExternalUser("very long just nonexistent username with spaces")
             };
             
             var aggregateException = await Assert.ThrowsAsync<AggregateException>(async () => await transmittedMessage.Transfer());
