@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VkConnector", "VkConnector\VkConnector.csproj", "{7565047F-DA6E-43F1-B3F4-3C9F8D1DD8AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VkConnector.Test", "VkConnector.Test\VkConnector.Test.csproj", "{FFC6A9D7-B47E-4330-BD6A-B856F90B2D04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7565047F-DA6E-43F1-B3F4-3C9F8D1DD8AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7565047F-DA6E-43F1-B3F4-3C9F8D1DD8AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7565047F-DA6E-43F1-B3F4-3C9F8D1DD8AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFC6A9D7-B47E-4330-BD6A-B856F90B2D04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFC6A9D7-B47E-4330-BD6A-B856F90B2D04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFC6A9D7-B47E-4330-BD6A-B856F90B2D04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFC6A9D7-B47E-4330-BD6A-B856F90B2D04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

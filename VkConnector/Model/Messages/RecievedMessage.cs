@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using VkConnector.Model.Users;
 
 namespace VkConnector.Model.Messages
 {
     /// <summary>
-    ///     Получаемое пользователем бота сообщение
+    ///     Получаемое пользователем сообщение
     /// </summary>
     public class RecievedMessage
     {

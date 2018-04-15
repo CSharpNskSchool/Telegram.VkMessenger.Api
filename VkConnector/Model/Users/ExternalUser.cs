@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace VkConnector.Model.Users
 {
@@ -15,6 +11,6 @@ namespace VkConnector.Model.Users
         ///     Id этого челика в соц.сети
         /// </summary>
         [Required]
-        public string Id { get; }
+        public string Id { get; set; }
     }
 }
