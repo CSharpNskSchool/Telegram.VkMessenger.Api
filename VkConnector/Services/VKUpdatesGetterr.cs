@@ -17,6 +17,7 @@ namespace VkConnector.Services
         private readonly VkApi connector = new VkApi(null, null, null);
         private readonly HttpClient client = new HttpClient();
 
+
         private const int longPoolWait = 20;
         private const int longPoolMode = 2;
         private const int longPoolVersion = 2;
@@ -25,6 +26,7 @@ namespace VkConnector.Services
         private string longPoolKey;
         private ulong longPoolTs;
         private ulong longPoolPts;
+
 
         /// <summary>
         ///     Класс с ответственностью возвращать обновления пользователя.
@@ -54,7 +56,9 @@ namespace VkConnector.Services
         {
             var result = new List<RecievedMessage>();
 
+
             var updateResponse = client.GetAsync($"https://{longPoolServer}?act=a_check&key={longPoolKey}&ts={longPoolTs}&wait={longPoolWait}&mode={longPoolMode}&version={longPoolVersion}").Result;
+
             var jsoned = updateResponse.Content.ReadAsStringAsync().Result;
             var updates = (JObject)JsonConvert.DeserializeObject(jsoned);
 
@@ -73,14 +77,18 @@ namespace VkConnector.Services
 
         private IEnumerable<RecievedMessage> GetTextMessagesUpdates()
         {
+
             var messages = connector.Messages.GetLongPollHistory(new MessagesGetLongPollHistoryParams() { Ts = longPoolTs, Pts = longPoolPts }).
+
             Messages;
             foreach (var message in messages)
             {
                 var sender = new ExternalUser((message.FromId ?? -1).ToString());
                 var text = new MessageBody(message.Body);
+
                 var recievedMessage = new RecievedMessage(sender, text);
                 yield return recievedMessage;
+
             }
         }
 
@@ -90,7 +98,9 @@ namespace VkConnector.Services
             {
                 case 1:
                     {
+
                         this.longPoolTs = ts;
+
                         break;
                     }
                 case 2:
@@ -110,10 +120,12 @@ namespace VkConnector.Services
         private void UpdateLongpollServerInfo()
         {
             var data = connector.Messages.GetLongPollServer(true);
+
             longPoolServer = data.Server;
             longPoolKey = data.Key;
             longPoolTs = data.Ts;
             longPoolPts = data.Pts ?? 0;
+
         }
     }
 }
