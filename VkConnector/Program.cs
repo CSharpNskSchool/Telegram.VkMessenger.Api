@@ -13,7 +13,6 @@ namespace VkConnector
         public static IWebHost BuildWebHost(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://localhost:8080")
                 .UseStartup<Startup>()
                 .Build();
         }
