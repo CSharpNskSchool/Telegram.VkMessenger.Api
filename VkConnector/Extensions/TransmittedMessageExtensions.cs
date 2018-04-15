@@ -16,7 +16,7 @@ namespace VkConnector.Extensions
             {
                 throw new ArgumentException($"Сообщение пустое");
             }
-            
+
             var api = new VkApi();
             await api.AuthorizeAsync(new ApiAuthParams
             {
