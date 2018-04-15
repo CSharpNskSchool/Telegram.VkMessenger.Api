@@ -41,7 +41,8 @@ namespace VkConnector.Controllers
                 });
             }
 
-            return Ok(new ResponseResult {IsOk = true, Description = "Сообщение отправлено"});
+
+            return Ok(new ResponseResult {IsOk = false, Description = "Сообщение отправлено"});
         }
     }
 }
