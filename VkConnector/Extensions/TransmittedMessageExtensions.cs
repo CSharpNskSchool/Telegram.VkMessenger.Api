@@ -11,40 +11,32 @@ namespace VkConnector.Extensions
     {
         public static async Task Transfer(this TransmittedMessage transmittedMessage)
         {
-            var api = new VkApi();
-            await api.CheckedAuthorizeAsync(transmittedMessage.AuthorizedSender.AccessToken);
-
-            var transferTasks = transmittedMessage.Receivers
-                .Select(receiver => api.GetResolvedId(receiver.Id).Result)
-                .Select(receiverId => new Task(async () =>
-                {
-                    await api.SendMessage(receiverId, transmittedMessage.Body);
-                }))
-                .ToArray();
-
-            foreach (var transferTask in transferTasks)
+            var bodyText = transmittedMessage.Body.Text;
+            if (bodyText == null)
             {
-                transferTask.Start();
+                throw new ArgumentException($"Сообщение пустое");
             }
 
-            Task.WaitAll(transferTasks);
-        }
-
-        private static async Task SendMessage(this VkApi api, long peerId, MessageBody messageBody)
-        {
-            await api.Messages.SendAsync(new MessagesSendParams
+            var api = new VkApi();
+            await api.AuthorizeAsync(new ApiAuthParams
             {
-                Message = messageBody.Text,
-                PeerId = peerId
+                AccessToken = transmittedMessage.AuthorizedSender.AccessToken
             });
+
+            var receiverIds = transmittedMessage.Receivers
+                .Select(receiver => api.GetReceiverId(receiver.Id));
+
+            foreach (var receiverId in receiverIds)
+            {
+                await api.Messages.SendAsync(new MessagesSendParams
+                {
+                    Message = bodyText,
+                    PeerId = receiverId
+                });
+            }
         }
 
-        /// <summary>
-        ///     Получение id адресата Вконтакте по короткому имени.
-        /// </summary>
-        /// <remarks> Отдельно обрабатываются групповые беседы, имеющие идентификаторы вида 'c*номер*' </remarks>
-        /// <returns>Id пользователя, если он найден. Иначе null.</returns>
-        private static async Task<long> GetResolvedId(this VkApi api, string receiver)
+        private static long GetReceiverId(this VkApi api, string receiver)
         {
             if (receiver.StartsWith("c") && long.TryParse(receiver.Substring(1), out var groupChatId))
             {
@@ -53,18 +45,18 @@ namespace VkConnector.Extensions
 
             try
             {
-                var resolvedReceiver = await api.Utils.ResolveScreenNameAsync(receiver);
-                if (resolvedReceiver.Id != null)
+                var receiverId = api.Utils.ResolveScreenName(receiver).Id;
+                if (receiverId.HasValue)
                 {
-                    return resolvedReceiver.Id.Value;
+                    return receiverId.Value;
                 }
             }
             catch (Exception e)
             {
-                // ignore
+                // ignored
             }
 
-            throw new ArgumentException($"Получатель не найден: {receiver}");
+            throw new ArgumentException($"Не найден получатель: {receiver}");
         }
     }
 }

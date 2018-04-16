@@ -8,16 +8,20 @@ namespace VkConnector.Model.Messages
     /// </summary>
     public class RecievedMessage
     {
+        public RecievedMessage(ExternalUser sender, MessageBody body)
+        {
+            Sender = sender;
+            Body = body;
+        }
+
         /// <summary>
         ///     Отправитель (челик из соц.сети)
         /// </summary>
-        [Required]
         public ExternalUser Sender { get; }
 
         /// <summary>
         ///     Тело сообщения
         /// </summary>
-        [Required]
         public MessageBody Body { get; }
     }
 }

@@ -5,6 +5,11 @@
     /// </summary>
     public class MessageBody
     {
+        public MessageBody(string textMessage)
+        {
+            this.Text = textMessage;
+        }
+
         /// <summary>
         ///     Текстовое сообщение
         /// </summary>
