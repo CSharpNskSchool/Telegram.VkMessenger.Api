@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using VkConnector.Model.Users;
+﻿using VkConnector.Model.Users;
 
 namespace VkConnector.Model.Messages
 {

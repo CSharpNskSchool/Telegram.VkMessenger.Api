@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace VkConnector.Model.Users
+﻿namespace VkConnector.Model.Users
 {
     /// <summary>
     ///     Пользователь соц.сети, с которым пользователь бота хочет взаимодействовать.
@@ -9,7 +7,7 @@ namespace VkConnector.Model.Users
     {
         public ExternalUser(string id)
         {
-            this.Id = id;
+            Id = id;
         }
 
         /// <summary>

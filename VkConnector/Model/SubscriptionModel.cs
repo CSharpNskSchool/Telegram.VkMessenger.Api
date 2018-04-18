@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using VkConnector.Model.Users;
 
 namespace VkConnector.Model
@@ -7,7 +6,7 @@ namespace VkConnector.Model
     /// <summary>
     /// </summary>
     [Serializable]
-    public class Subscription
+    public class SubscriptionModel
     {
         /// <summary>
         ///     Url, на который будут приходить уведомления о новых сообщениях
@@ -17,7 +16,7 @@ namespace VkConnector.Model
         /// <summary>
         ///     Информация для авторизации
         /// </summary>
-        
+
         public AuthorizedUser User { get; set; }
     }
 }

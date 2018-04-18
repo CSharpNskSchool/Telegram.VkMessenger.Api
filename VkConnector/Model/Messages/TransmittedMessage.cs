@@ -12,20 +12,20 @@ namespace VkConnector.Model.Messages
         /// <summary>
         ///     Авторизованный отправитель сообщения
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Не передана информации для аутентификации")]
         public AuthorizedUser AuthorizedSender { get; set; }
 
         /// <summary>
         ///     Получатели сообщения
         /// </summary>
-        [Required]
-        public IEnumerable<ExternalUser> Receivers { get; set; }
+        [Required(ErrorMessage = "Не указан получатель")]
+        public ExternalUser Receiver { get; set; }
 
 
         /// <summary>
         ///     Тело сообщения
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Нету тела сообщения")]
         public MessageBody Body { get; set; }
     }
 }

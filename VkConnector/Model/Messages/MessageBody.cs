@@ -7,7 +7,7 @@
     {
         public MessageBody(string textMessage)
         {
-            this.Text = textMessage;
+            Text = textMessage;
         }
 
         /// <summary>

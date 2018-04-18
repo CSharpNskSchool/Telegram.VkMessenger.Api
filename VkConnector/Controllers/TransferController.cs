@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VkConnector.Extensions;
@@ -24,7 +25,7 @@ namespace VkConnector.Controllers
                 return BadRequest(new ResponseResult
                 {
                     IsOk = false,
-                    Description = "Не передано сообщение или данные для авторизации"
+                    Description = string.Join("\r\n", ModelState.Values.SelectMany(entry => entry.Errors).Select(error => error.ErrorMessage))
                 });
             }
 
@@ -34,7 +35,7 @@ namespace VkConnector.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(new ResponseResult
+                return NotFound(new ResponseResult
                 {
                     IsOk = false,
                     Description = e.Message
@@ -42,7 +43,7 @@ namespace VkConnector.Controllers
             }
 
 
-            return Ok(new ResponseResult {IsOk = false, Description = "Сообщение отправлено"});
+            return Ok(new ResponseResult {IsOk = true, Description = "Сообщение отправлено"});
         }
     }
 }

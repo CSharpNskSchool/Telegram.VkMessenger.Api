@@ -6,7 +6,6 @@ namespace VkConnector.Model.Users
     /// <summary>
     ///     Информация, необходимая для аутентификации
     /// </summary>
-
     [Serializable]
     public class AuthorizedUser
     {
@@ -14,6 +13,7 @@ namespace VkConnector.Model.Users
         ///     access_token социальной сети
         /// </summary>
         [Required]
+        // TODO: добавить в атрибут проверку на корректный ацесс-токен
         public string AccessToken { get; set; }
     }
 }
