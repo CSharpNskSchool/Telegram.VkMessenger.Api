@@ -16,7 +16,6 @@ namespace VkConnector.Model
         /// <summary>
         ///     Информация для авторизации
         /// </summary>
-
         public AuthorizedUser User { get; set; }
     }
 }

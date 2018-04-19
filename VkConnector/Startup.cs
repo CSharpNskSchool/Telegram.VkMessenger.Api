@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using VkConnector.Services;
 
 namespace VkConnector
 {
@@ -20,6 +21,7 @@ namespace VkConnector
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSingleton<IUpdatesListener, UpdatesListener>();
 
             services.AddSwaggerGen(c =>
             {

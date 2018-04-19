@@ -25,7 +25,8 @@ namespace VkConnector.Controllers
                 return BadRequest(new ResponseResult
                 {
                     IsOk = false,
-                    Description = string.Join("\r\n", ModelState.Values.SelectMany(entry => entry.Errors).Select(error => error.ErrorMessage))
+                    Description = string.Join("\r\n",
+                        ModelState.Values.SelectMany(entry => entry.Errors).Select(error => error.ErrorMessage))
                 });
             }
 

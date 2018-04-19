@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using VkConnector.Extensions;
 using VkConnector.Model;
+using VkConnector.Services;
 
 namespace VkConnector.Controllers
 {
@@ -10,6 +10,13 @@ namespace VkConnector.Controllers
     [Route("api/[controller]")]
     public class SubscribeController : Controller
     {
+        private readonly IUpdatesListener _updatesListener;
+
+        public SubscribeController(IUpdatesListener updatesListener)
+        {
+            _updatesListener = updatesListener;
+        }
+
         /// <summary>
         ///     Установка WebHook для получения обновлений пользователя
         /// </summary>
@@ -23,13 +30,18 @@ namespace VkConnector.Controllers
                 return BadRequest(new ResponseResult
                 {
                     IsOk = false,
-                    Description = string.Join("\r\n", ModelState.Values.SelectMany(entry => entry.Errors).Select(error => error.ErrorMessage))
+                    Description = string.Join("\r\n",
+                        ModelState.Values.SelectMany(entry => entry.Errors).Select(error => error.ErrorMessage))
                 });
             }
 
-            subscriptionModel.SetWebHook();
+            _updatesListener.StartListening(subscriptionModel);
 
-            return Ok(new ResponseResult {IsOk = true, Description = $"WebHook установлен на адрес {subscriptionModel.Url}"});
+            return Ok(new ResponseResult
+            {
+                IsOk = true,
+                Description = $"WebHook установлен на адрес {subscriptionModel.Url}"
+            });
         }
     }
 }

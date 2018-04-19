@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using VkConnector.Model.Messages;
 using VkNet;
@@ -48,7 +45,8 @@ namespace VkConnector.Extensions
         {
             const long groupChatsStartId = 2000000000;
 
-            if (receiverScreenName.StartsWith("c") && long.TryParse(receiverScreenName.Substring(1), out var groupChatId))
+            if (receiverScreenName.StartsWith("c") &&
+                long.TryParse(receiverScreenName.Substring(1), out var groupChatId))
             {
                 return groupChatsStartId + groupChatId;
             }
